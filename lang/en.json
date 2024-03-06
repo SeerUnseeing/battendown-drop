@@ -211,7 +211,9 @@
   "BITD.Wear": "Wear",
   "BITD.Gloom": "Gloom",
 
-  "BITD.Add": "Add",
+  "BITD.Add": "Add {type}",
+  "BITD.AddButton": "Add",
+  "BITD.Cancel": "Cancel",
   "BITD.Effects": "Effects",
   "BITD.EffectCreate": "Create Effect",
   "BITD.EffectToggle": "Toggle Effect",

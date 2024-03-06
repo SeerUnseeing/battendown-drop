@@ -1,0 +1,11 @@
+<form>​
+    <div class="items-to-add">
+        {{#each items}}
+            <input id="select-item-{{this._id}}" type="{{#if distinct}}radio{{else}}checkbox{{/if}}" name="select_items" value="{{this._id}}">
+            <label class="flex-horizontal" for="select-item-{{this._id}}">
+                {{localize this.name}}{{#if this.system.load}}({{this.system.load}}){{/if}}{{#if this.system.price}}({{this.system.price}}){{/if}}
+                <i class="tooltip fas fa-question-circle"><span class="tooltiptext">{{localize this.system.description}}</span></i>
+            </label>
+        {{/each}}
+    </div>
+</form>

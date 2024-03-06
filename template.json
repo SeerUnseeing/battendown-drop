@@ -278,6 +278,8 @@
   "class": {
     "templates": ["default", "logic", "activatedEffect"],
     "experience_clues": [],
+    "special_items": [],
+    "special_abilities": [],
     "base_skills": {
       "hunt": [0],
       "study": [0],

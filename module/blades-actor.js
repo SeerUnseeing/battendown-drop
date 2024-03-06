@@ -126,7 +126,7 @@ export class BladesActor extends Actor {
         },
         no: {
           icon: "<i class='fas fa-times'></i>",
-          label: game.i18n.localize('Close'),
+          label: game.i18n.localize('BITD.Close'),
         },
       },
       default: "yes",

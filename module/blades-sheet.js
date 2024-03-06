@@ -34,49 +34,27 @@ export class BladesSheet extends ActorSheet {
     event.preventDefault();
     const item_type = $(event.currentTarget).data("itemType")
     const distinct = $(event.currentTarget).data("distinct")
-    let input_type = "checkbox";
-
-    if (typeof distinct !== "undefined") {
-      input_type = "radio";
-    }
-
+    
     let items = await BladesHelpers.getAllItemsByType(item_type, game);
 
-    let html = `<div class="items-to-add">`;
-
-    items.forEach(e => {
-      let addition_price_load = ``;
-
-      if (typeof e.system.load !== "undefined") {
-        addition_price_load += `(${e.system.load})`
-      } else if (typeof e.system.price !== "undefined") {
-        addition_price_load += `(${e.system.price})`
-      }
-
-      html += `<input id="select-item-${e._id}" type="${input_type}" name="select_items" value="${e._id}">`;
-      html += `<label class="flex-horizontal" for="select-item-${e._id}">`;
-      html += `${game.i18n.localize(e.name)} ${addition_price_load} <i class="tooltip fas fa-question-circle"><span class="tooltiptext">${game.i18n.localize(e.system.description)}</span></i>`;
-      html += `</label>`;
-    });
-
-    html += `</div>`;
+    let html = await renderTemplate("systems/battendown-drop/templates/add-item.html",{items: items, distinct : distinct})
 
     let options = {
       // width: "500"
     }
-
+    console.log(item_type)
     let dialog = new Dialog({
-      title: `${game.i18n.localize('Add')} ${item_type}`,
+      title: game.i18n.format('BITD.Add', {type : item_type.capitalize()}), //TODO: Make sure that the item type is getting properly localized here.
       content: html,
       buttons: {
         one: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize('Add'),
+          label: game.i18n.localize('BITD.AddButton'),
           callback: async (html) => await this.addItemsToSheet(item_type, $(html).find('.items-to-add'))
         },
         two: {
           icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('Cancel'),
+          label: game.i18n.localize('BITD.Cancel'),
           callback: () => false
         }
       },

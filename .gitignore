@@ -1,2 +1,9 @@
 /.idea/*
-/blades-in-the-dark.lock
+/battendown-drop.lock
+packs/**/*.ldb
+packs/**/*.log
+packs/**/CURRENT
+packs/**/LOCK
+packs/**/LOG
+packs/**/LOG.old
+packs/**/MANIFEST-*
