@@ -1,0 +1,45 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{img}}" data-edit="img" title="{{name}}"/>
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'BITD.Name'}}"/></h1>
+        </div>
+    </header>
+  
+    {{!-- Sheet Body --}}
+    <section class="sheet-body flex-vertical">
+
+        <label class="label-stripe">{{localize "BITD.InfluenceTrigger"}}</label>
+        <div>When you <input type='text' name='system.influence_trigger.condition' value = '{{system.influence_trigger.condition}}' style='width:300px;font-style: italic;' />, gain 1 XP and grant <input type='text' name='system.influence_trigger.short_name' value = '{{system.influence_trigger.short_name}}' style='width:150px' /> 1 influence.</div>
+
+        <div>Current Influence: <input type='number' name='system.influence_amount' value = '{{system.influence_amount}}' style='width:30px;' /></div>
+
+        <label class="label-stripe">{{localize "BITD.Description"}}</label>
+        {{editor system.description target="system.description" button=true editable=editable}}
+        
+        {{#if isGM}}
+            <div class="label-stripe">{{localize "BITD.InfluenceMessage"}}</div>
+
+            <div>Text Color:{{colorPicker name="system.text_info.color" value=system.text_info.color default="#f2f3f5"}}</div>
+            <div>Background Image:{{filePicker type="image" target="system.background"}}</div>
+            <div><input type="text" name="system.background" value="{{system.background}}"></div>
+            
+            <li class="chat-message message flexcol example-message">
+                <header class="message-header flexrow">
+                    <h4 class="message-sender">Sender</h4>
+                    <span class="message-metadata">
+                        <time class="message-timestamp">Now</time>
+                    </span>
+                </header>
+                <div class="message-content">
+                    <div class="chat-label label-stripe-chat">{{localize "BITD.InfluenceGained" influence=system.influence_trigger.short_name}}</div>
+                    <textarea name='system.flavor_text' rows=1 style='width:100%;resize: vertical;margin-bottom: 0;color: var(--color-text-dark-primary);'>{{{system.flavor_text}}}</textarea>
+                </div>
+            </li>
+
+            <div class="label-stripe">{{localize "BITD.Effects"}}</div>
+            <div id="effects">{{> "systems/battendown-drop/templates/parts/active-effects.html"}}</div>
+        {{/if}}
+    </section>
+  </form>
+  

@@ -92,9 +92,6 @@
 
   </section>
 
-  {{!-- Experience --}}
-  <section class="flex experience">
-  </section>
   {{!-- Stress and Trauma --}}
   <div id="character-{{_id}}-stress-trauma" class="section big-teeth-section">
     <div id="character-{{_id}}-stress" class="big-teeth character-stress">
@@ -164,6 +161,13 @@
     </div>
 
   </div>
+
+  {{!-- Experience --}}
+  <section class="flex experience">
+    {{#each system.experience_clues as |clue|}}
+      <p>{{localize clue}}</p>
+    {{/each}}
+  </section>
 
   {{!-- Harm, Healing and Armor --}}
   <section id="character-{{_id}}-harm-armor" class="flex harm-armor">
@@ -239,6 +243,7 @@
         <a class="item" data-tab="abilities">{{localize "BITD.Abilities"}}</a>
         <a class="item" data-tab="loadout">{{localize "BITD.Loadout"}}</a>
         <a class="item" data-tab="character-notes">{{localize "BITD.Notes"}}</a>
+        <a class="item" data-tab="influence">{{localize "BITD.Influence"}}</a>
         {{#if isGM}}
           <a class="item" data-tab="effects">{{localize "BITD.Effects"}}</a>
         {{/if}}
@@ -312,6 +317,25 @@
           <p>{{localize "BITD.Notes"}}</p>
         </div>
         <textarea rows="13" name="system.description">{{{system.description}}}</textarea>
+      </div>
+
+      <div class="tab flex-vertical" data-tab="influence">
+        <div class="label-stripe">
+          <p>{{localize "BITD.Influence"}}</p>
+        </div>
+        {{#each items as |item id|}}
+        {{#if (eq item.type "influence_trigger")}}
+          <div class="item flex-horizontal" data-item-id="{{item._id}}">
+            <div class="item-body flex-horizontal">
+              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+              <div class="item-name">{{item.name}}</div>
+              <div class="item-description">{{{item.system.description}}}</div>
+            </div>
+            <a class="item-control item-delete" title="{{localize 'BITD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+            <a class="item-control item-post" title="{{localize 'BITD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
+          </div>
+        {{/if}}
+        {{/each}}
       </div>
 
       {{!-- Active Effects --}}

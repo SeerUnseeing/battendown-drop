@@ -37,7 +37,7 @@ export class BladesSheet extends ActorSheet {
     
     let items = await BladesHelpers.getAllItemsByType(item_type, game);
 
-    let html = await renderTemplate("systems/battendown-drop/templates/add-item.html",{items: items, distinct : distinct})
+    let html = await renderTemplate("systems/battendown-drop/templates/popups/add-item.html",{items: items, distinct : distinct})
 
     let options = {
       // width: "500"

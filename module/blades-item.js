@@ -24,6 +24,18 @@ export class BladesItem extends Item {
 
   /* -------------------------------------------- */
 
+  /** @override */
+  static getDefaultArtwork(data) {
+    console.log("Default art!")
+    if (data.type == "influence_trigger")
+      return {img: "systems/battendown-drop/ui/icons/star-pupil.svg"}
+    else
+      return super.getDefaultArtwork()
+  }
+
+  /* -------------------------------------------- */
+
+  
   /* override */
   prepareData() {
 
@@ -78,10 +90,13 @@ export class BladesItem extends Item {
 
   async sendToChat() {
     const itemData = this.data.toObject();
-    if (itemData.img.includes("/mystery-man")) {
+    const special_sheets = {"influence_trigger" : "systems/battendown-drop/templates/chat/influence-trigger.html"}
+
+    if (itemData.img == BladesItem.getDefaultArtwork(itemData).img) {
       itemData.img = null;
     }
-    const html = await renderTemplate("systems/battendown-drop/templates/chat/chat-item.html", itemData);
+
+    const html = await renderTemplate(special_sheets[itemData.type] || "systems/battendown-drop/templates/chat/chat-item.html", itemData);
     const chatData = {
       user: game.userId,
       content: html,

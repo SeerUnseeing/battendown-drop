@@ -25,7 +25,7 @@ export class BladesItemSheet extends ItemSheet {
     const path = "systems/battendown-drop/templates/items";
     let simple_item_types = ["background", "heritage", "vice", "crew_reputation"];
     let template_name = `${this.item.type}`;
-
+  
     if (simple_item_types.indexOf(this.item.type) >= 0) {
       template_name = "simple";
     }

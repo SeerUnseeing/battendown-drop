@@ -101,6 +101,7 @@
   "BITD.Cohorts": "Cohorts",
   "BITD.Notes": "Notes",
   "BITD.AllItems": "All Items",
+  "BITD.Influence": "Influence",
   "BITD.CrewXP": "Crew XP",
   "BITD.CrewExpClue1": "At the end of each session, for each item below, mark 1 xp (or instead mark 2xp if that item occurred multiple times).",
   "BITD.SpecialAbilities": "Special Abilities",
@@ -147,7 +148,7 @@
   "BITD.HarmDead": "Dead",
   "BITD.HarmDeadDescription": "The cohort is destroyed. You can spend coin equal to your Tier +2 to restore it, plus two downtime activities to recruit new gang members, or hire a new expert.",
 
-  "BITD.Roll": "Roll",
+  "BITD.Roll": "Roll {attr}",
   "BITD.RollFailure": "Failure",
   "BITD.RollCriticalSuccess": "Critical Success!",
   "BITD.RollSuccess": "Success",
@@ -221,6 +222,12 @@
   "BITD.EffectDelete": "Delete Effect",
   "BITD.EffectWarning": "Managing Active Effects within an Owned Item is not currently supported by FoundryVTT and will be added in a subsequent update.",
 
+
+  "BITD.TemporaryEffect": "Temporary Effect",
+  "BITD.PassiveEffect": "Passive Effect",
+  "BITD.InactiveEffect": "Inactive Effect",
+  "BITD.SuppressedEffect": "Suppressed Effect",
+
   "BITD.Name": "Name",
   "BITD.CampaignName": "Campaign Name",
 
@@ -269,6 +276,11 @@
   "BITD.RollAcquireAssetCritical": "Exceptional result.",
   "BITD.RollAcquireAssetSuccess": "Good result.",
   "BITD.RollAcquireAssetPartialSuccess": "Mixed result.",
-  "BITD.RollAcquireAssetFailure": "Bad result."
+  "BITD.RollAcquireAssetFailure": "Bad result.",
+
+  "BITD.InfluenceGained" : "Influence Gained - {influence}",
+  "BITD.InfluenceMessage" : "Influence Message",
+  "BITD.InfluenceTrigger" : "Influence Trigger",
+  "BITD.ExampleMessage" : "Example Message"
 
 }

@@ -50,11 +50,14 @@ Hooks.once("init", async function() {
   Actors.registerSheet("blades", BladesClockSheet, { types: ["\uD83D\uDD5B clock"], makeDefault: true });
   Actors.registerSheet("blades", BladesNPCSheet, { types: ["npc"], makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
+  //Items.registerSheet("blades", BladesTriggerSheet, {types: ["influence_trigger"], makeDefault: true});
   Items.registerSheet("blades", BladesItemSheet, {makeDefault: true});
   await preloadHandlebarsTemplates();
 
   Actors.registeredSheets.forEach(element => console.log(element.Actor.name));
 
+  //Capitalize a string
+  Handlebars.registerHelper('capitalize', value => value.toString().capitalize());
 
   // Is the value Turf side.
   Handlebars.registerHelper('is_turf_side', function(value, options) {
@@ -117,6 +120,11 @@ Hooks.once("init", async function() {
     return (a !== b) ? options.fn(this) : '';
   });
 
+  // WithPlus handlebar.
+  Handlebars.registerHelper('withplus', (a) => {
+    return `${(a >= 0) ? '+' : ''}${a}`;
+  });
+  
   // ReputationTurf handlebar.
   Handlebars.registerHelper('repturf', (turfs_amount, options) => {
     let html = options.fn(this);
@@ -303,5 +311,31 @@ Hooks.on("renderSceneControls", async (app, html) => {
     await simpleRollPopup();
   });
   html.children().first().append( dice_roller );
+
+});
+
+//When we do influence messages, this is where we can set the styling for the entire messagebox.
+Hooks.on("renderChatMessage", async (message, html, data) => {
+  console.log(message,html)
+  if(message.getFlag("battendown-drop","text-color")){
+    html.css("--color-text-dark-primary",foundry.utils.Color.fromString(message.getFlag("battendown-drop","text-color")))
+    html.css("background-image",`url(systems/battendown-drop/ui/backgrounds/asphalt.png)`)
+  }
+  //TODO: Fill this out. It should check the message's flags for a 'message-style' attrigute, and set the styling based on that. 
+});
+
+// getSceneControlButtons
+Hooks.on("renderBladesItemSheet", async (sheet, html,data) => {
+  
+  if (data.type== "influence_trigger" ){
+    let x = html.find(".example-message")
+    if (data.system.background){
+      x.css("background-image",`url(${data.system.background})`)
+      x.css("background-repeat",`repeat`)
+    }
+    if (data.system.text_info.color){
+      x.css("--color-text-dark-primary",foundry.utils.Color.fromString(data.system.text_info.color))
+    }
+  }
 
 });

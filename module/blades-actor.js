@@ -65,74 +65,38 @@ export class BladesActor extends Actor {
   /* -------------------------------------------- */
 
   rollAttributePopup(attribute_name) {
-
-    // const roll = new Roll("1d20 + @abilities.wis.mod", actor.getRollData());
-    let attribute_label = BladesHelpers.getRollLabel(attribute_name);
-
-    let content = `
-        <h2>${game.i18n.localize('BITD.Roll')} ${game.i18n.localize(attribute_label)}</h2>
-        <form>
-          <div class="form-group">
-            <label>${game.i18n.localize('BITD.Modifier')}:</label>
-            <select id="mod" name="mod">
-              ${this.createListOfDiceMods(-3,+3,0)}
-            </select>
-          </div>`;
-    if (BladesHelpers.isAttributeAction(attribute_name)) {
-      content += `
-            <div class="form-group">
-              <label>${game.i18n.localize('BITD.Position')}:</label>
-              <select id="pos" name="pos">
-                <option value="controlled">${game.i18n.localize('BITD.PositionControlled')}</option>
-                <option value="risky" selected>${game.i18n.localize('BITD.PositionRisky')}</option>
-                <option value="desperate">${game.i18n.localize('BITD.PositionDesperate')}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>${game.i18n.localize('BITD.Effect')}:</label>
-              <select id="fx" name="fx">
-                <option value="limited">${game.i18n.localize('BITD.EffectLimited')}</option>
-                <option value="standard" selected>${game.i18n.localize('BITD.EffectStandard')}</option>
-                <option value="great">${game.i18n.localize('BITD.EffectGreat')}</option>
-              </select>
-            </div>`;
-    } else {
-        content += `
-            <input  id="pos" name="pos" type="hidden" value="">
-            <input id="fx" name="fx" type="hidden" value="">`;
-    }
-    content += `
-        <div className="form-group">
-          <label>${game.i18n.localize('BITD.Notes')}:</label>
-          <input id="note" name="note" type="text" value="">
-        </div><br/>
-        </form>
-      `;
-
-    new Dialog({
-      title: `${game.i18n.localize('BITD.Roll')} ${game.i18n.localize(attribute_label)}`,
-      content: content,
-      buttons: {
-        yes: {
-          icon: "<i class='fas fa-check'></i>",
-          label: game.i18n.localize('BITD.Roll'),
-          callback: async (html) => {
-            let modifier = parseInt(html.find('[name="mod"]')[0].value);
-            let position = html.find('[name="pos"]')[0].value;
-            let effect = html.find('[name="fx"]')[0].value;
-            let note = html.find('[name="note"]')[0].value;
-            await this.rollAttribute(attribute_name, modifier, position, effect, note);
-          }
-        },
-        no: {
-          icon: "<i class='fas fa-times'></i>",
-          label: game.i18n.localize('BITD.Close'),
-        },
-      },
-      default: "yes",
-    }).render(true);
-
+    let attribute_label = game.i18n.localize(BladesHelpers.getRollLabel(attribute_name));
+    let args = {attribute_label: attribute_label,
+                isAttrAction : BladesHelpers.isAttributeAction(attribute_name),
+                mods : this.createListOfDiceMods(-3,+3,0)};
+    console.log(args)
+    renderTemplate("systems/battendown-drop/templates/popups/roll.html", args).then(content=>{
+                      new Dialog({
+                        title: game.i18n.format('BITD.Roll', {attr:attribute_label}),
+                        content: content,
+                        buttons: {
+                          yes: {
+                            icon: "<i class='fas fa-check'></i>",
+                            label: game.i18n.format('BITD.Roll',{attr:attribute_label}),
+                            callback: async (html) => {
+                              let modifier = parseInt(html.find('[name="mod"]')[0].value);
+                              let position = html.find('[name="pos"]')[0].value;
+                              let effect = html.find('[name="fx"]')[0].value;
+                              let note = html.find('[name="note"]')[0].value;
+                              await this.rollAttribute(attribute_name, modifier, position, effect, note);
+                            }
+                          },
+                          no: {
+                            icon: "<i class='fas fa-times'></i>",
+                            label: game.i18n.localize('BITD.Cancel'),
+                          },
+                        },
+                        default: "yes",
+                      }).render(true);
+                    });
   }
+    
+    
 
   /* -------------------------------------------- */
 
@@ -194,27 +158,14 @@ export class BladesActor extends Actor {
    *  Selected die
    */
   createListOfDiceMods(rs, re, s) {
+    var out = []
+    s =  s || 0;
 
-    var text = ``;
-    var i = 0;
-
-    if ( s == "" ) {
-      s = 0;
+    for (var i = rs; i <= re; i++ ) {
+      out.push({val:i,selected:i==s})
     }
-
-    for ( i  = rs; i <= re; i++ ) {
-      var plus = "";
-      if ( i >= 0 ) { plus = "+" };
-      text += `<option value="${i}"`;
-      if ( i == s ) {
-        text += ` selected`;
-      }
-
-      text += `>${plus}${i}d</option>`;
-    }
-
-    return text;
-
+    console.log(out)
+    return out;
   }
 
   /* -------------------------------------------- */

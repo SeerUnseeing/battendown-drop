@@ -169,6 +169,8 @@
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 3px;
+  padding-top: 3px;
   display: flex;
   font-weight: bold;
 }
@@ -186,8 +188,7 @@
 .battendown-drop .editor-content {
   min-height: 150px;
 }
-.battendown-drop .cohort-description,
-.battendown-drop .gang-description {
+.battendown-drop .description {
   font-style: italic;
 }
 .battendown-drop i.nullifier {
@@ -232,6 +233,9 @@
 }
 .battendown-drop .abilities .item-description, .battendown-drop .loadout .item-description, .battendown-drop .faction-items .item-description {
   width: 260px;
+}
+.battendown-drop button.file-picker {
+  width: 50px;
 }
 .battendown-drop td {
   padding: 5px;
@@ -475,7 +479,6 @@
 }
 .battendown-drop.crew.sheet .item .item-control {
   flex-grow: 1;
-  max-width: 18px;
 }
 .battendown-drop.crew.sheet .item .item-body,
 .battendown-drop.crew.sheet .item .item-class-label {
@@ -1070,9 +1073,6 @@
 .battendown-drop.actor.pc * .tab[data-tab] {
   display: none;
 }
-.battendown-drop.actor.pc nav.tabs a.item {
-  font-weight: bolder;
-}
 .battendown-drop.actor.pc * .tab[data-tab].active {
   display: block;
 }
@@ -1463,7 +1463,7 @@
   flex-grow: 2;
 }
 .battendown-drop.actor.pc * .item .item-control {
-  flex-grow: 1;
+  flex-grow: 0;
 }
 .battendown-drop.actor.pc * .item .item-body,
 .battendown-drop.actor.pc * .item .item-class-label {
@@ -1553,6 +1553,14 @@
   margin-bottom: 10px;
 }
 
+/*:root {
+  --message-background-image: //(../ui/parchment.jpg)
+  var(--message-background-image)
+}*/
+.chat-message {
+  background: url(../systems/battendown-drop/ui/backgrounds/asphalt.png) !important;
+}
+
 .chat-label {
   background-color: #191813;
   font-family: Kirsty, serif;
@@ -1571,14 +1579,6 @@
   text-align: center;
   padding: 3px 5px;
   height: 20px !important;
-}
-
-.chat-item img {
-  width: 40px;
-  height: 40px;
-  float: left;
-  margin-right: 5px;
-  margin-top: 5px;
 }
 
 .label-stripe-chat {

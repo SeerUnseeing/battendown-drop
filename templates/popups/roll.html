@@ -1,0 +1,37 @@
+<h2>{{localize 'BITD.Roll' attr=attribute_label}}</h2>
+<form>
+    <div class="form-group">
+        <label>{{localize 'BITD.Modifier'}}:</label>
+        <select id="mod" name="mod">
+            {{#each mods}}
+                {{log this.val this.selected}}
+                <option value="{{this.val}}"{{#if this.selected}} selected{{/if}}>{{withplus this.val}}d</option>
+            {{/each}}
+        </select>
+    </div>
+    {{#if isAttrAction}}
+        <div class="form-group">
+            <label>{{localize 'BITD.Position'}}:</label>
+            <select id="pos" name="pos">
+                <option value="controlled">{{localize 'BITD.PositionControlled'}}</option>
+                <option value="risky" selected>{{localize 'BITD.PositionRisky'}}</option>
+                <option value="desperate">{{localize 'BITD.PositionDesperate'}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>{{localize 'BITD.Effect'}}:</label>
+            <select id="fx" name="fx">
+                <option value="limited">{{localize 'BITD.EffectLimited'}}</option>
+                <option value="standard" selected>{{localize 'BITD.EffectStandard'}}</option>
+                <option value="great">{{localize 'BITD.EffectGreat'}}</option>
+            </select>
+        </div>
+    {{else}}
+        <input  id="pos" name="pos" type="hidden" value="">
+        <input id="fx" name="fx" type="hidden" value="">`;
+    {{/if}}
+    <div className="form-group">
+        <label>{{localize 'BITD.Notes'}}:</label>
+        <input id="note" name="note" type="text" value="">
+    </div><br/>
+</form>

@@ -58,7 +58,7 @@ export class BladesActiveEffect extends ActiveEffect {
     switch ( a.dataset.action ) {
       case "create":
         return owner.createEmbeddedDocuments("ActiveEffect", [{
-          label: "New Effect",
+          name: "New Effect",
           icon: "systems/battendown-drop/styles/assets/icons/Icon.3_13.png",
           origin: owner.uuid,
           "duration.rounds": selector.dataset.effectType === "temporary" ? 1 : undefined,
@@ -87,21 +87,25 @@ export class BladesActiveEffect extends ActiveEffect {
       temporary: {
         type: "temporary",
         label: "Temporary Effects",
+        addLabel: "BITD.TemporaryEffect",
         effects: []
       },
       passive: {
         type: "passive",
         label: "Passive Effects",
+        addLabel: "BITD.PassiveEffect",
         effects: []
       },
       inactive: {
         type: "inactive",
         label: "Inactive Effects",
+        addLabel: "BITD.InactiveEffect",
         effects: []
       },
       suppressed: {
         type: "suppressed",
         label: "Suppressed Effects",
+        addLabel : "BITD.SuppressedEffect",
         effects: []
       }
 
@@ -109,7 +113,7 @@ export class BladesActiveEffect extends ActiveEffect {
 
     // Iterate over active effects, classifying them into categories
     for ( let e of effects ) {
-      e._getSourceName(); // Trigger a lookup for the source name
+      e.sourceName; // Trigger a lookup for the source name
       if ( e.isSuppressed ) categories.suppressed.effects.push(e);
       else if ( e.disabled ) categories.inactive.effects.push(e);
       else if ( e.isTemporary ) categories.temporary.effects.push(e);

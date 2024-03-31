@@ -142,7 +142,8 @@
             }
           }
         }
-    }
+    },
+    "influence": []
   },
   "crew": {
     "name": "",
@@ -186,7 +187,7 @@
     }
   },
   "Item": {
-    "types": ["faction", "item", "class", "ability", "heritage", "background", "vice", "crew_upgrade", "cohort", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability"],
+    "types": ["faction", "item", "class", "ability", "heritage", "background", "vice", "crew_upgrade", "cohort", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability","influence_trigger"],
     "templates": {
       "default": {
         "description": ""
@@ -527,6 +528,23 @@
         "description": "",
         "connects": []
       }
+    }
+  },
+  "influence_trigger": {
+    "templates": ["default", "activatedEffect"],
+    "influence_amount": 0,
+    "influence_trigger": {
+      "condition": "",
+      "short_name": ""
+    },
+    "flavor_text": "",
+    "text_info":{
+      "color":"#f2f3f5"
+    },
+    "background": "systems/battendown-drop/ui/backgrounds/asphalt.png",
+    "borders":{
+      "widths" : [2, 2, 2, 2],
+      "color": "#f2f3f5"
     }
   }
 }
